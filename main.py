@@ -12,16 +12,13 @@ data = pandas.read_csv("50_states.csv")
 states = data["state"].to_list()
 
 guessed_states = []
-states_to_learn = []
 attempts = 0
 
 while attempts <= 50:
     answer_state = screen.textinput(title=f"{attempts}/50 States Correct", prompt="What's another state's name?").title()
 
     if answer_state == "Exit":
-        for state in states:
-            if state not in guessed_states:
-                states_to_learn.append(state)
+        states_to_learn = [state for state in states if state not in guessed_states]
 
         new_data = pandas.DataFrame(states_to_learn)
         new_data.to_csv("states_to_learn.csv")
